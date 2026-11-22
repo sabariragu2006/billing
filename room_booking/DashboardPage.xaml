@@ -1,0 +1,245 @@
+﻿<Page x:Class="room_booking.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="#F1F8E9"
+      FontFamily="Segoe UI">
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      Padding="28,24,28,40">
+            <StackPanel>
+
+                <!-- ── Header ── -->
+                <Grid Margin="0,0,0,24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="📊" FontSize="22" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="Dashboard" FontSize="22" FontWeight="Bold"
+                                   Foreground="#1B5E20" VerticalAlignment="Center"
+                                   FontFamily="Segoe UI"/>
+                    </StackPanel>
+
+                    <Button Grid.Column="1" Content="↻  Refresh"
+                            x:Name="BtnRefresh"
+                            Click="BtnRefresh_Click"
+                            Height="36" Width="110"
+                            Cursor="Hand"
+                            Background="#2E7D32" Foreground="White"
+                            FontSize="15" FontWeight="Bold"
+                            FontFamily="Segoe UI"
+                            BorderThickness="0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="10" Padding="14,0">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+                <!-- ── Room stat cards ── -->
+                <TextBlock Text="ROOM OVERVIEW"
+                           FontSize="11" FontWeight="Bold"
+                           FontFamily="Segoe UI"
+                           Foreground="#2E7D32"
+                           Margin="0,0,0,10"/>
+
+                <UniformGrid Columns="4" Margin="0,0,0,28">
+
+                    <!-- Total Rooms -->
+                    <Border Background="White" CornerRadius="14"
+                            BorderBrush="#A5D6A7" BorderThickness="1"
+                            Padding="20,18" Margin="0,0,10,0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="12" ShadowDepth="2"
+                                              Color="#000000" Opacity="0.05"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <Border Background="#F1F8E9" CornerRadius="8"
+                                    Width="40" Height="40"
+                                    HorizontalAlignment="Left" Margin="0,0,0,12">
+                                <TextBlock Text="🏨" FontSize="18"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock x:Name="TxtTotalRooms" Text="0"
+                                       FontSize="32" FontWeight="Bold"
+                                       FontFamily="Segoe UI"
+                                       Foreground="#1B5E20"/>
+                            <TextBlock Text="Total Rooms"
+                                       FontSize="13" FontFamily="Segoe UI"
+                                       Foreground="#2E7D32"
+                                       Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Free Rooms -->
+                    <Border Background="White" CornerRadius="14"
+                            BorderBrush="#A5D6A7" BorderThickness="1"
+                            Padding="20,18" Margin="0,0,10,0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="12" ShadowDepth="2"
+                                              Color="#000000" Opacity="0.05"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <Border Background="#C8E6C9" CornerRadius="8"
+                                    Width="40" Height="40"
+                                    HorizontalAlignment="Left" Margin="0,0,0,12">
+                                <TextBlock Text="✅" FontSize="18"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock x:Name="TxtFreeRooms" Text="0"
+                                       FontSize="32" FontWeight="Bold"
+                                       FontFamily="Segoe UI"
+                                       Foreground="#2E7D32"/>
+                            <TextBlock Text="Free Rooms"
+                                       FontSize="13" FontFamily="Segoe UI"
+                                       Foreground="#2E7D32"
+                                       Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Occupied Rooms -->
+                    <Border Background="White" CornerRadius="14"
+                            BorderBrush="#A5D6A7" BorderThickness="1"
+                            Padding="20,18" Margin="0,0,10,0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="12" ShadowDepth="2"
+                                              Color="#000000" Opacity="0.05"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <Border Background="#FFCDD2" CornerRadius="8"
+                                    Width="40" Height="40"
+                                    HorizontalAlignment="Left" Margin="0,0,0,12">
+                                <TextBlock Text="🛏" FontSize="18"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock x:Name="TxtOccupiedRooms" Text="0"
+                                       FontSize="32" FontWeight="Bold"
+                                       FontFamily="Segoe UI"
+                                       Foreground="#B71C1C"/>
+                            <TextBlock Text="Occupied Rooms"
+                                       FontSize="13" FontFamily="Segoe UI"
+                                       Foreground="#2E7D32"
+                                       Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Today's Revenue -->
+                    <Border Background="White" CornerRadius="14"
+                            BorderBrush="#A5D6A7" BorderThickness="1"
+                            Padding="20,18" Margin="0,0,0,0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="12" ShadowDepth="2"
+                                              Color="#000000" Opacity="0.05"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <Border Background="#A5D6A7" CornerRadius="8"
+                                    Width="40" Height="40"
+                                    HorizontalAlignment="Left" Margin="0,0,0,12">
+                                <TextBlock Text="💰" FontSize="18"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock x:Name="TxtTodayRevenue" Text="₹0"
+                                       FontSize="28" FontWeight="Bold"
+                                       FontFamily="Segoe UI"
+                                       Foreground="#1B5E20"/>
+                            <TextBlock Text="Today's Revenue"
+                                       FontSize="13" FontFamily="Segoe UI"
+                                       Foreground="#2E7D32"
+                                       Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                </UniformGrid>
+
+                <!-- ── Occupancy bar ── -->
+                <Border Background="White" CornerRadius="14"
+                        BorderBrush="#A5D6A7" BorderThickness="1"
+                        Padding="20,16" Margin="0,0,0,28">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="12" ShadowDepth="2"
+                                          Color="#000000" Opacity="0.05"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Text="Occupancy Rate"
+                                       FontSize="15" FontWeight="Bold"
+                                       FontFamily="Segoe UI"
+                                       Foreground="#1B5E20"/>
+                            <TextBlock Grid.Column="1"
+                                       x:Name="TxtOccupancyPct"
+                                       Text="0%"
+                                       FontSize="15" FontWeight="Bold"
+                                       FontFamily="Segoe UI"
+                                       Foreground="#2E7D32"/>
+                        </Grid>
+                        <!-- Track -->
+                        <Border Background="#C8E6C9" CornerRadius="999" Height="10">
+                            <Border x:Name="OccupancyBar"
+                                    Background="#2E7D32"
+                                    CornerRadius="999"
+                                    Height="10"
+                                    HorizontalAlignment="Left"
+                                    Width="0"/>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- ── Day-wise sales ── -->
+                <TextBlock Text="SALES REPORT — LAST 7 DAYS"
+                           FontSize="11" FontWeight="Bold"
+                           FontFamily="Segoe UI"
+                           Foreground="#2E7D32"
+                           Margin="0,0,0,10"/>
+
+                <Border Background="White" CornerRadius="14"
+                        BorderBrush="#A5D6A7" BorderThickness="1"
+                        Padding="20,18" Margin="0,0,0,28">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="12" ShadowDepth="2"
+                                          Color="#000000" Opacity="0.05"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <Grid x:Name="ChartGrid" Height="160" Margin="0,0,0,16"/>
+                        <StackPanel x:Name="SalesPanel"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ── Recent check-ins ── -->
+                <TextBlock Text="RECENT CHECK-INS"
+                           FontSize="11" FontWeight="Bold"
+                           FontFamily="Segoe UI"
+                           Foreground="#2E7D32"
+                           Margin="0,0,0,10"/>
+
+                <Border Background="White" CornerRadius="14"
+                        BorderBrush="#A5D6A7" BorderThickness="1"
+                        Padding="0,0,0,0" Margin="0,0,0,28">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="12" ShadowDepth="2"
+                                          Color="#000000" Opacity="0.05"/>
+                    </Border.Effect>
+                    <StackPanel x:Name="RecentPanel"/>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

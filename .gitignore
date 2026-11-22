@@ -1,0 +1,15 @@
+bin/
+obj/
+packages/
+.vs/
+publish/
+*.pfx
+*.rar
+*.zip
+*.user
+
+*.exe
+*.msi
+*.deploy
+Installer/
+Output/

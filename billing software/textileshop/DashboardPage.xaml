@@ -1,0 +1,843 @@
+﻿<!-- DashboardPage.xaml — Light Violet Premium Dashboard UI -->
+<Page x:Class="textileshop.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      d:DesignHeight="960" d:DesignWidth="1440"
+      Background="#F0F4FF"
+      FontFamily="Segoe UI"
+      Title="Dashboard">
+
+    <Page.Resources>
+
+        <!-- ═══════════════════════════════════════════════
+             SHADOWS
+        ═══════════════════════════════════════════════ -->
+        <DropShadowEffect x:Key="GlowBlue"   BlurRadius="16" ShadowDepth="2" Color="#C7D2FE" Opacity="0.5"/>
+        <DropShadowEffect x:Key="GlowGreen"  BlurRadius="16" ShadowDepth="2" Color="#A7F3D0" Opacity="0.5"/>
+        <DropShadowEffect x:Key="GlowRed"    BlurRadius="16" ShadowDepth="2" Color="#FECACA" Opacity="0.5"/>
+        <DropShadowEffect x:Key="GlowAmber"  BlurRadius="16" ShadowDepth="2" Color="#FDE68A" Opacity="0.5"/>
+        <DropShadowEffect x:Key="CardShadow" BlurRadius="16" ShadowDepth="2" Direction="270" Color="#C7D2FE" Opacity="0.4"/>
+        <DropShadowEffect x:Key="NavShadow"  BlurRadius="18" ShadowDepth="3" Direction="0"   Color="#C7D2FE" Opacity="0.5"/>
+
+        <!-- ═══════════════════════════════════════════════
+             BASE LIGHT CARD
+        ═══════════════════════════════════════════════ -->
+        <Style x:Key="LightCard" TargetType="Border">
+            <Setter Property="Background"     Value="White"/>
+            <Setter Property="CornerRadius"   Value="14"/>
+            <Setter Property="Effect"         Value="{StaticResource CardShadow}"/>
+            <Setter Property="Padding"        Value="24"/>
+        </Style>
+
+        <!-- ═══════════════════════════════════════════════
+             KPI CARD
+        ═══════════════════════════════════════════════ -->
+        <Style x:Key="KpiCard" TargetType="Border">
+            <Setter Property="Background"   Value="White"/>
+            <Setter Property="CornerRadius" Value="14"/>
+            <Setter Property="Effect"       Value="{StaticResource CardShadow}"/>
+            <Setter Property="Padding"      Value="20,18"/>
+            <Setter Property="Cursor"       Value="Hand"/>
+        </Style>
+
+        <!-- ═══════════════════════════════════════════════
+             BUTTON STYLES
+        ═══════════════════════════════════════════════ -->
+
+        <!-- PRIMARY (violet) -->
+        <Style x:Key="PrimaryBtn" TargetType="Button">
+            <Setter Property="Background"    Value="#4F46E5"/>
+            <Setter Property="Foreground"    Value="White"/>
+            <Setter Property="FontWeight"    Value="SemiBold"/>
+            <Setter Property="FontSize"      Value="13"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor"        Value="Hand"/>
+            <Setter Property="Padding"       Value="18,10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#4338CA"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#3730A3"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Background" Value="#C7D2FE"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- SECONDARY (outlined violet) -->
+        <Style x:Key="SecondaryBtn" TargetType="Button">
+            <Setter Property="Background"      Value="White"/>
+            <Setter Property="Foreground"      Value="#4F46E5"/>
+            <Setter Property="BorderBrush"     Value="#C7D2FE"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="FontWeight"      Value="SemiBold"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Padding"         Value="18,10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#EEF2FF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#E0E7FF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- GHOST LINK -->
+        <Style x:Key="GhostBtn" TargetType="Button">
+            <Setter Property="Background"      Value="Transparent"/>
+            <Setter Property="Foreground"      Value="#4F46E5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight"      Value="SemiBold"/>
+            <Setter Property="FontSize"        Value="12"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Padding"         Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock x:Name="Tb" Text="{TemplateBinding Content}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   FontWeight="{TemplateBinding FontWeight}"
+                                   FontSize="{TemplateBinding FontSize}"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Tb" Property="TextDecorations" Value="Underline"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- INLINE VIEW BUTTON -->
+        <Style x:Key="ViewBtn" TargetType="Button">
+            <Setter Property="Background"      Value="#EEF2FF"/>
+            <Setter Property="Foreground"      Value="#4F46E5"/>
+            <Setter Property="BorderBrush"     Value="#C7D2FE"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize"        Value="11"/>
+            <Setter Property="FontWeight"      Value="SemiBold"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6" Padding="10,5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background"  Value="#E0E7FF"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#4F46E5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ═══════════════════════════════════════════════
+             DATAGRID STYLES
+        ═══════════════════════════════════════════════ -->
+        <Style x:Key="GridHeader" TargetType="DataGridColumnHeader">
+            <Setter Property="Background"      Value="#F5F3FF"/>
+            <Setter Property="Foreground"      Value="#6B7280"/>
+            <Setter Property="FontWeight"      Value="Bold"/>
+            <Setter Property="FontSize"        Value="10"/>
+            <Setter Property="Padding"         Value="14,13"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush"     Value="#EEF2FF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridColumnHeader">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="GridRow" TargetType="DataGridRow">
+            <Setter Property="Background"      Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F5F3FF"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#EEF2FF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="GridCell" TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding"         Value="14,0"/>
+            <Setter Property="Foreground"      Value="#374151"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <Border Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#1E1B4B"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Page.Resources>
+
+    <!-- ══════════════════════════════════════════════════════════
+         ROOT SCROLL
+    ══════════════════════════════════════════════════════════ -->
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel>
+
+            <!-- ══ TOP ACCENT BAR ══ -->
+            <Border Height="6" HorizontalAlignment="Stretch">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#4F46E5" Offset="0"/>
+                        <GradientStop Color="#7C3AED" Offset="0.5"/>
+                        <GradientStop Color="#A855F7" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <!-- ══ MAIN CONTENT ══ -->
+            <Grid Margin="32,24,32,32">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Row 0: Header bar -->
+                    <RowDefinition Height="20"/>
+                    <!-- Row 1: spacer -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Row 2: KPI strip -->
+                    <RowDefinition Height="22"/>
+                    <!-- Row 3: spacer -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Row 4: Charts row -->
+                    <RowDefinition Height="22"/>
+                    <!-- Row 5: spacer -->
+                    <RowDefinition Height="*"/>
+                    <!-- Row 6: Billings table -->
+                </Grid.RowDefinitions>
+
+                <!-- ══════════════════════════════════════════
+                     ROW 0 — HEADER BAR
+                ══════════════════════════════════════════ -->
+                <Border Grid.Row="0" Background="White" CornerRadius="14" Padding="28,22"
+                        HorizontalAlignment="Stretch">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#C7D2FE" Opacity="0.5" BlurRadius="16" ShadowDepth="2"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Left: branding block -->
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                <!-- Thin violet tick -->
+                                <Border Width="3" Height="16" CornerRadius="2"
+                                        Margin="0,0,10,0" VerticalAlignment="Center">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#4F46E5" Offset="0"/>
+                                            <GradientStop Color="#7C3AED" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Border Background="#EEF2FF" CornerRadius="20" Padding="10,4">
+                                    <TextBlock Text="OVERVIEW" FontSize="9" FontWeight="Bold"
+                                               Foreground="#4F46E5"/>
+                                </Border>
+                            </StackPanel>
+
+                            <TextBlock Text="Business Dashboard"
+                                       FontSize="24" FontWeight="Bold" Foreground="#1E1B4B"/>
+                            <TextBlock x:Name="TxtLastUpdated" FontSize="11" Foreground="#6B7280"
+                                       Margin="0,4,0,0"/>
+                        </StackPanel>
+
+                        <!-- Right: actions cluster -->
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <!-- Date chip -->
+                            <Border Background="#F5F3FF" BorderBrush="#C7D2FE" BorderThickness="1.5"
+                                    CornerRadius="8" Padding="14,9" Margin="0,0,10,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="📅" FontSize="12" VerticalAlignment="Center"
+                                               Margin="0,0,7,0"/>
+                                    <TextBlock x:Name="TxtDateRange" Text="May 2025" FontSize="12"
+                                               FontWeight="SemiBold" Foreground="#4F46E5"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Button Content="↻  Refresh" Style="{StaticResource SecondaryBtn}"
+                                    Width="110" Height="38" Margin="0,0,10,0"
+                                    Click="BtnRefresh_Click"/>
+
+                            <Button Content="⚙  Settings" Style="{StaticResource PrimaryBtn}"
+                                    Width="115" Height="38"
+                                    Click="BtnSettings_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ══════════════════════════════════════════
+                     ROW 2 — KPI STRIP
+                ══════════════════════════════════════════ -->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- ── KPI 1: Total Products ── -->
+                    <Border Grid.Column="0" Style="{StaticResource KpiCard}"
+                            MouseLeftButtonDown="KpiCard_Click" Tag="products">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3"/>
+                                <RowDefinition Height="18"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="6"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Accent bar: violet -->
+                            <Border Grid.Row="0" CornerRadius="2,2,0,0" Margin="-20,-18,-20,0">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#4F46E5" Offset="0"/>
+                                        <GradientStop Color="#7C3AED" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+
+                            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                <Border Background="#EEF2FF" CornerRadius="8"
+                                        Width="36" Height="36" Margin="0,0,10,0">
+                                    <TextBlock Text="📦" FontSize="16"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="PRODUCTS" FontSize="10" FontWeight="Bold"
+                                           Foreground="#6B7280" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="4" x:Name="KpiTotalProducts" Text="0"
+                                       FontSize="42" FontWeight="Bold" Foreground="#1E1B4B"/>
+
+                            <Border Grid.Row="6" Background="#EEF2FF" CornerRadius="20"
+                                    Padding="10,4" HorizontalAlignment="Left">
+                                <TextBlock x:Name="KpiProductsChange" Text="+0 this month"
+                                           FontSize="10" FontWeight="Bold" Foreground="#4F46E5"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- ── KPI 2: Total Customers ── -->
+                    <Border Grid.Column="2" Style="{StaticResource KpiCard}"
+                            MouseLeftButtonDown="KpiCard_Click" Tag="customers">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3"/>
+                                <RowDefinition Height="18"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="6"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Accent bar: purple -->
+                            <Border Grid.Row="0" CornerRadius="2,2,0,0" Margin="-20,-18,-20,0">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#7C3AED" Offset="0"/>
+                                        <GradientStop Color="#A855F7" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+
+                            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                <Border Background="#F5F3FF" CornerRadius="8"
+                                        Width="36" Height="36" Margin="0,0,10,0">
+                                    <TextBlock Text="👥" FontSize="16"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="CUSTOMERS" FontSize="10" FontWeight="Bold"
+                                           Foreground="#6B7280" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="4" x:Name="KpiTotalCustomers" Text="0"
+                                       FontSize="42" FontWeight="Bold" Foreground="#1E1B4B"/>
+
+                            <Border Grid.Row="6" Background="#F5F3FF" CornerRadius="20"
+                                    Padding="10,4" HorizontalAlignment="Left">
+                                <TextBlock x:Name="KpiCustomersChange" Text="+0 this month"
+                                           FontSize="10" FontWeight="Bold" Foreground="#7C3AED"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- ── KPI 3: Total Sales ── -->
+                    <Border Grid.Column="4" Style="{StaticResource KpiCard}"
+                            MouseLeftButtonDown="KpiCard_Click" Tag="billing">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3"/>
+                                <RowDefinition Height="18"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="6"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Accent bar: indigo-to-violet -->
+                            <Border Grid.Row="0" CornerRadius="2,2,0,0" Margin="-20,-18,-20,0">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#4338CA" Offset="0"/>
+                                        <GradientStop Color="#6D28D9" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+
+                            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                <Border Background="#EEF2FF" CornerRadius="8"
+                                        Width="36" Height="36" Margin="0,0,10,0">
+                                    <TextBlock Text="💰" FontSize="16"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="TOTAL SALES" FontSize="10" FontWeight="Bold"
+                                           Foreground="#6B7280" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="4" x:Name="KpiTotalSales" Text="₹ 0.00"
+                                       FontSize="34" FontWeight="Bold" Foreground="#1E1B4B"/>
+
+                            <Border Grid.Row="6" Background="#EEF2FF" CornerRadius="20"
+                                    Padding="10,4" HorizontalAlignment="Left">
+                                <TextBlock x:Name="KpiSalesChange" Text="+0% vs last month"
+                                           FontSize="10" FontWeight="Bold" Foreground="#4338CA"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- ── KPI 4: Low Stock ── -->
+                    <Border Grid.Column="6" Style="{StaticResource KpiCard}"
+                            MouseLeftButtonDown="KpiCard_Click" Tag="products">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3"/>
+                                <RowDefinition Height="18"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="6"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Accent bar: red warning -->
+                            <Border Grid.Row="0" CornerRadius="2,2,0,0" Margin="-20,-18,-20,0">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#EF4444" Offset="0"/>
+                                        <GradientStop Color="#F87171" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+
+                            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                <Border Background="#FEF2F2" CornerRadius="8"
+                                        Width="36" Height="36" Margin="0,0,10,0">
+                                    <TextBlock Text="⚠️" FontSize="16"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="LOW STOCK" FontSize="10" FontWeight="Bold"
+                                           Foreground="#6B7280" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="4" x:Name="KpiLowStock" Text="0"
+                                       FontSize="42" FontWeight="Bold" Foreground="#EF4444"/>
+
+                            <Border Grid.Row="6" Background="#FEF2F2" CornerRadius="20"
+                                    Padding="10,4" HorizontalAlignment="Left">
+                                <TextBlock Text="Need restocking"
+                                           FontSize="10" FontWeight="Bold" Foreground="#EF4444"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- ══════════════════════════════════════════
+                     ROW 4 — CHARTS ROW
+                ══════════════════════════════════════════ -->
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- ── Sales Trend Card ── -->
+                    <Border Grid.Column="0" Style="{StaticResource LightCard}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="18"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="12"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Header row -->
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                        <Border Background="#EEF2FF" CornerRadius="6"
+                                                Width="4" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Revenue Trend" FontSize="15" FontWeight="Bold"
+                                                   Foreground="#1E1B4B" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <TextBlock Text="Last 6 months performance" FontSize="11"
+                                               Foreground="#6B7280" Margin="0,2,0,0"/>
+                                </StackPanel>
+
+                                <!-- Legend -->
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Border Width="10" Height="10" CornerRadius="2" Margin="0,0,6,0">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="#4F46E5" Offset="0"/>
+                                                <GradientStop Color="#7C3AED" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <TextBlock Text="Revenue" FontSize="11" Foreground="#6B7280"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- Chart bars (populated from code-behind via ChartSalesTrend) -->
+                            <StackPanel Grid.Row="2" x:Name="ChartSalesTrend"/>
+
+                            <!-- Footer hint -->
+                            <TextBlock Grid.Row="4" Text="Click a bar to view detailed monthly report →"
+                                       FontSize="10" Foreground="#9CA3AF" FontStyle="Italic"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- ── Top Customers Card ── -->
+                    <Border Grid.Column="2" Style="{StaticResource LightCard}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="16"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="16"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Header -->
+                            <StackPanel Grid.Row="0">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                    <Border Background="#EEF2FF" CornerRadius="6"
+                                            Width="4" Margin="0,0,10,0"/>
+                                    <TextBlock Text="Top Customers" FontSize="15" FontWeight="Bold"
+                                               Foreground="#1E1B4B" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <TextBlock Text="By total spend this period" FontSize="11"
+                                           Foreground="#6B7280" Margin="0,2,0,0"/>
+                            </StackPanel>
+
+                            <!-- Customer list -->
+                            <ItemsControl Grid.Row="2" x:Name="ListTopCustomers">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Padding="0,10" BorderBrush="#EEF2FF"
+                                                BorderThickness="0,0,0,1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="28"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Rank badge -->
+                                                <Border Grid.Column="0" Background="#EEF2FF"
+                                                        CornerRadius="6" Width="26" Height="26">
+                                                    <TextBlock Text="{Binding Rank}" FontSize="10"
+                                                               FontWeight="Bold" Foreground="#4F46E5"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"/>
+                                                </Border>
+
+                                                <!-- Name + orders -->
+                                                <StackPanel Grid.Column="1" Margin="10,0,0,0"
+                                                            VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding Name}" FontSize="13"
+                                                               FontWeight="SemiBold" Foreground="#1E1B4B"/>
+                                                    <TextBlock Text="{Binding OrderCount, StringFormat={}{0} orders}"
+                                                               FontSize="11" Foreground="#6B7280"
+                                                               Margin="0,1,0,0"/>
+                                                </StackPanel>
+
+                                                <!-- Amount -->
+                                                <TextBlock Grid.Column="2"
+                                                           Text="{Binding TotalSpent, StringFormat=₹{0:N0}}"
+                                                           FontSize="13" FontWeight="Bold"
+                                                           Foreground="#4F46E5"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Right"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <!-- Footer CTA -->
+                            <Button Grid.Row="4" Content="View All Customers →"
+                                    Style="{StaticResource SecondaryBtn}"
+                                    HorizontalAlignment="Stretch" Height="38"
+                                    Click="BtnViewCustomers_Click"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- ══════════════════════════════════════════
+                     ROW 6 — RECENT BILLINGS TABLE
+                ══════════════════════════════════════════ -->
+                <Border Grid.Row="6" Background="White" CornerRadius="14"
+                        Effect="{StaticResource CardShadow}" Padding="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Table header bar -->
+                        <Grid Grid.Row="0" Margin="24,18,24,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                    <Border Background="#EEF2FF" CornerRadius="6"
+                                            Width="4" Margin="0,0,10,0"/>
+                                    <TextBlock Text="Recent Billings" FontSize="15" FontWeight="Bold"
+                                               Foreground="#1E1B4B" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <TextBlock Text="Latest transactions across all customers"
+                                           FontSize="11" Foreground="#6B7280" Margin="0,2,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                <!-- Search chip -->
+                                <Border Background="#F5F3FF" BorderBrush="#C7D2FE"
+                                        BorderThickness="1.5" CornerRadius="8"
+                                        Padding="12,8" Margin="0,0,10,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="🔍" FontSize="11" VerticalAlignment="Center"
+                                                   Margin="0,0,7,0" Foreground="#6B7280"/>
+                                        <TextBlock Text="Search billings..." FontSize="11"
+                                                   Foreground="#9CA3AF" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Button Content="+ New Bill" Style="{StaticResource PrimaryBtn}"
+                                        Height="36" Click="BtnViewBilling_Click"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Separator line -->
+                        <Border Grid.Row="0" VerticalAlignment="Bottom"
+                                Height="1" Background="#EEF2FF" Margin="0,64,0,0"/>
+
+                        <!-- DataGrid -->
+                        <DataGrid Grid.Row="1"
+                                  x:Name="DgRecentActivity"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False" CanUserDeleteRows="False"
+                                  IsReadOnly="True"
+                                  Background="White" BorderThickness="0"
+                                  GridLinesVisibility="Horizontal"
+                                  HorizontalGridLinesBrush="#EEF2FF"
+                                  RowHeight="52"
+                                  AlternatingRowBackground="#FAFBFF"
+                                  SelectionMode="Single"
+                                  HeadersVisibility="Column"
+                                  VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  ColumnHeaderStyle="{StaticResource GridHeader}"
+                                  RowStyle="{StaticResource GridRow}"
+                                  CellStyle="{StaticResource GridCell}"
+                                  RowBackground="White">
+
+                            <DataGrid.Columns>
+
+                                <!-- Date -->
+                                <DataGridTextColumn Header="DATE / TIME"
+                                                    Binding="{Binding Timestamp, StringFormat={}{0:dd MMM yyyy}}"
+                                                    Width="160" FontSize="12"/>
+
+                                <!-- Type pill -->
+                                <DataGridTemplateColumn Header="TYPE" Width="130">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border Background="#EEF2FF" CornerRadius="20"
+                                                    Padding="10,4" HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Type}" FontSize="10"
+                                                           FontWeight="Bold" Foreground="#4F46E5"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!-- Description -->
+                                <DataGridTextColumn Header="DESCRIPTION"
+                                                    Binding="{Binding Description}"
+                                                    Width="*" FontSize="12"/>
+
+                                <!-- Customer -->
+                                <DataGridTextColumn Header="CUSTOMER"
+                                                    Binding="{Binding Customer}"
+                                                    Width="160" FontSize="12"/>
+
+                                <!-- Amount -->
+                                <DataGridTemplateColumn Header="AMOUNT" Width="140">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Amount}"
+                                                       FontSize="13" FontWeight="Bold"
+                                                       Foreground="#4F46E5"
+                                                       VerticalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!-- Status pill -->
+                                <DataGridTemplateColumn Header="STATUS" Width="110">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border Background="#EEF2FF" CornerRadius="20"
+                                                    Padding="10,4" HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Status}" FontSize="10"
+                                                           FontWeight="Bold" Foreground="#4F46E5"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!-- Action -->
+                                <DataGridTemplateColumn Header="" Width="90">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="View →"
+                                                    Style="{StaticResource ViewBtn}"
+                                                    Height="30"
+                                                    VerticalAlignment="Center"
+                                                    ToolTip="View billing details"
+                                                    Tag="{Binding}"
+                                                    Click="BtnViewActivity_Click"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <!-- Table footer: pagination -->
+                        <Border Grid.Row="1" VerticalAlignment="Bottom"
+                                Background="#F5F3FF" BorderBrush="#EEF2FF"
+                                BorderThickness="0,1,0,0" CornerRadius="0,0,14,14"
+                                Padding="24,12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0"
+                                           x:Name="TxtRowCount"
+                                           Text="Showing 10 of 10 records"
+                                           FontSize="11" Foreground="#9CA3AF"
+                                           VerticalAlignment="Center"/>
+
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Button Content="← Prev" Style="{StaticResource SecondaryBtn}"
+                                            Height="30" Padding="12,6" Margin="0,0,8,0"/>
+                                    <Button Content="Next →" Style="{StaticResource SecondaryBtn}"
+                                            Height="30" Padding="12,6"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

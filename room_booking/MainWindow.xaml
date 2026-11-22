@@ -1,0 +1,33 @@
+﻿<Window x:Class="room_booking.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:room_booking"
+        Title="KMV Grand Inn - Room Booking"
+        Height="680" Width="1160"
+        MinHeight="500" MinWidth="860"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0FFF0"
+        FontFamily="Segoe UI"
+        Icon="logo.ico">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!-- Sidebar -->
+        <local:NavBar Grid.Column="0"
+                      x:Name="MainNavBar"
+                      PageChanged="NavBar_PageChanged"/>
+        <!-- Main Content Area -->
+        <Grid Grid.Column="1" Background="#F0FFF0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!-- Page Frame -->
+            <Frame Grid.Row="0"
+                   x:Name="MainFrame"
+                   NavigationUIVisibility="Hidden"
+                   Background="Transparent"/>
+        </Grid>
+    </Grid>
+</Window>

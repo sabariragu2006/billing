@@ -1,0 +1,267 @@
+﻿<Page x:Class="room_booking.ReservationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="#F1F8E9"
+      FontFamily="Segoe UI">
+
+    <Page.Resources>
+
+        <!-- ── Primary Button ── -->
+        <Style x:Key="PrimaryBtn" TargetType="Button">
+            <Setter Property="Background"      Value="#EA580C"/>
+            <Setter Property="Foreground"      Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize"        Value="15"/>
+            <Setter Property="FontWeight"      Value="Bold"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Height"          Value="42"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                CornerRadius="10" Padding="20,0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#2E7D32"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#1B5E20"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Background" Value="#A5D6A7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ── Danger Button ── -->
+        <Style x:Key="DangerBtn" TargetType="Button">
+            <Setter Property="Background"      Value="#FEE2E2"/>
+            <Setter Property="Foreground"      Value="#DC2626"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush"     Value="#FECACA"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="FontWeight"      Value="Bold"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Height"          Value="34"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8" Padding="12,0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#FCA5A5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ── Ghost Button ── -->
+        <Style x:Key="GhostBtn" TargetType="Button">
+            <Setter Property="Background"      Value="#F1F8E9"/>
+            <Setter Property="Foreground"      Value="#1B5E20"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="FontWeight"      Value="Bold"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Height"          Value="34"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                CornerRadius="8" Padding="14,0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#C8E6C9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ── FormField TextBox ── -->
+        <Style x:Key="FormField" TargetType="TextBox">
+            <Setter Property="Height"                   Value="40"/>
+            <Setter Property="Padding"                  Value="10,0"/>
+            <Setter Property="FontSize"                 Value="14"/>
+            <Setter Property="FontWeight"               Value="Bold"/>
+            <Setter Property="BorderBrush"              Value="#A5D6A7"/>
+            <Setter Property="BorderThickness"          Value="1.5"/>
+            <Setter Property="Background"               Value="White"/>
+            <Setter Property="Foreground"               Value="#000000"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#2E7D32"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      Padding="28,24,28,80">
+            <StackPanel>
+
+                <!-- Header -->
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="📋" FontSize="26" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBlock Text="Room " FontSize="26" FontWeight="Bold"
+                                   Foreground="#000000" VerticalAlignment="Center"/>
+                        <TextBlock Text="Reservations" FontSize="26" FontWeight="Bold"
+                                   Foreground="#EA580C" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <Button Grid.Column="1"
+                            Content="＋  New Reservation"
+                            Style="{StaticResource PrimaryBtn}"
+                            Height="42" Padding="18,0"
+                            Click="NewReservation_Click"/>
+                </Grid>
+
+                <!-- Stats strip -->
+                <Grid Margin="0,0,0,22">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Background="White" CornerRadius="12"
+                            BorderBrush="#A5D6A7" BorderThickness="1.5" Padding="16,14">
+                        <StackPanel>
+                            <TextBlock Text="TOTAL" FontSize="11" FontWeight="Bold"
+                                       Foreground="#1B5E20" Margin="0,0,0,4"/>
+                            <TextBlock x:Name="StatUpcoming" Text="0"
+                                       FontSize="30" FontWeight="Bold" Foreground="#000000"/>
+                            <TextBlock Text="reservations" FontSize="12" FontWeight="Bold" Foreground="#2E7D32"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="2" Background="White" CornerRadius="12"
+                            BorderBrush="#A5D6A7" BorderThickness="1.5" Padding="16,14">
+                        <StackPanel>
+                            <TextBlock Text="TODAY'S CHECK-INS" FontSize="11" FontWeight="Bold"
+                                       Foreground="#1B5E20" Margin="0,0,0,4"/>
+                            <TextBlock x:Name="StatToday" Text="0"
+                                       FontSize="30" FontWeight="Bold" Foreground="#000000"/>
+                            <TextBlock Text="arriving today" FontSize="12" FontWeight="Bold" Foreground="#2E7D32"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="4" Background="White" CornerRadius="12"
+                            BorderBrush="#A5D6A7" BorderThickness="1.5" Padding="16,14">
+                        <StackPanel>
+                            <TextBlock Text="CANCELLED" FontSize="11" FontWeight="Bold"
+                                       Foreground="#1B5E20" Margin="0,0,0,4"/>
+                            <TextBlock x:Name="StatCancelled" Text="0"
+                                       FontSize="30" FontWeight="Bold" Foreground="#B71C1C"/>
+                            <TextBlock Text="this month" FontSize="12" FontWeight="Bold" Foreground="#2E7D32"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Reservations list -->
+                <StackPanel x:Name="ReservationsPanel"/>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- ══════════════════════════════════════
+             MODAL OVERLAY - FULL PAGE
+        ══════════════════════════════════════ -->
+        <Grid x:Name="ModalOverlay" Visibility="Collapsed" Panel.ZIndex="100"
+              Background="#E8F5E9">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Modal header -->
+                <Border Grid.Row="0" Background="#1B5E20" Padding="24,14">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock x:Name="ModalTitle"
+                                       Text="New Reservation"
+                                       FontSize="20" FontWeight="Bold"
+                                       Foreground="White"/>
+                            <TextBlock x:Name="ModalSubtitle"
+                                       Text="Fill in guest and stay details"
+                                       FontSize="13" FontWeight="Bold" Foreground="#C8E6C9"
+                                       Margin="0,3,0,0"/>
+                        </StackPanel>
+                        <Button Grid.Column="1" Content="✕"
+                                Style="{StaticResource DangerBtn}"
+                                Background="#C62828" Foreground="White"
+                                BorderThickness="0"
+                                Click="CloseModal_Click"
+                                Width="32" Height="32"
+                                FontSize="14" FontWeight="Bold"/>
+                    </Grid>
+                </Border>
+
+                <!-- Modal body -->
+                <ScrollViewer Grid.Row="1"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled"
+                              Padding="20,14,20,14"
+                              Background="#E8F5E9">
+                    <StackPanel x:Name="ModalBody"/>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <!-- Toast -->
+        <Border x:Name="ToastBar" CornerRadius="999" Padding="20,10"
+                HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                Margin="0,0,0,28" Visibility="Collapsed" Panel.ZIndex="200"
+                Background="#1B5E20">
+            <TextBlock x:Name="ToastText" Foreground="White"
+                       FontSize="14" FontWeight="Bold"/>
+        </Border>
+    </Grid>
+</Page>

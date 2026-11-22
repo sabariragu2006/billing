@@ -1,0 +1,404 @@
+﻿<!-- CustomersPage.xaml — White/Violet Theme -->
+<Page x:Class="textileshop.CustomersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Background="#F0F4FF"
+      FontFamily="Segoe UI"
+      Title="Customers">
+
+    <Page.Resources>
+
+        <DropShadowEffect x:Key="CardShadow" BlurRadius="16" ShadowDepth="2"
+                          Direction="270" Color="#C7D2FE" Opacity="0.4"/>
+
+        <!-- Primary button -->
+        <Style x:Key="PrimaryBtn" TargetType="Button">
+            <Setter Property="Background"      Value="#4F46E5"/>
+            <Setter Property="Foreground"      Value="White"/>
+            <Setter Property="FontWeight"      Value="SemiBold"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Padding"         Value="16,10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#4338CA"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#3730A3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Secondary button -->
+        <Style x:Key="SecondaryBtn" TargetType="Button">
+            <Setter Property="Background"      Value="White"/>
+            <Setter Property="Foreground"      Value="#4F46E5"/>
+            <Setter Property="BorderBrush"     Value="#C7D2FE"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="FontWeight"      Value="SemiBold"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Padding"         Value="16,10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#EEF2FF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#E0E7FF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Search TextBox style -->
+        <Style x:Key="CustomersSearch" TargetType="TextBox">
+            <Setter Property="Background"               Value="White"/>
+            <Setter Property="Foreground"               Value="#1E1B4B"/>
+            <Setter Property="BorderBrush"              Value="#C7D2FE"/>
+            <Setter Property="BorderThickness"          Value="1.5"/>
+            <Setter Property="FontSize"                 Value="13"/>
+            <Setter Property="Padding"                  Value="12,10"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="CaretBrush"               Value="#4F46E5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          Focusable="False"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Sort ComboBox style -->
+        <Style x:Key="CustomersCombo" TargetType="ComboBox">
+            <Setter Property="Background"      Value="White"/>
+            <Setter Property="Foreground"      Value="#1E1B4B"/>
+            <Setter Property="BorderBrush"     Value="#C7D2FE"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="Padding"         Value="12,8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+    </Page.Resources>
+
+    <StackPanel>
+
+        <!-- ══ TOP ACCENT BAR ══ -->
+        <Border Height="6">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#4F46E5" Offset="0"/>
+                    <GradientStop Color="#7C3AED" Offset="0.5"/>
+                    <GradientStop Color="#A855F7" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <Grid Margin="24,20,24,24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Header       -->
+                <RowDefinition Height="12"/>
+                <!-- spacer       -->
+                <RowDefinition Height="Auto"/>
+                <!-- Search/Filter -->
+                <RowDefinition Height="12"/>
+                <!-- spacer       -->
+                <RowDefinition Height="*"/>
+                <!-- DataGrid     -->
+                <RowDefinition Height="Auto"/>
+                <!-- Footer       -->
+            </Grid.RowDefinitions>
+
+            <!-- ══ HEADER ══ -->
+            <Border Grid.Row="0" Padding="24,20" Background="White"
+                    CornerRadius="14" Effect="{StaticResource CardShadow}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <Border Width="3" Height="16" CornerRadius="2"
+                                    Margin="0,0,10,0" VerticalAlignment="Center">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#4F46E5" Offset="0"/>
+                                        <GradientStop Color="#7C3AED" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                            <Border Background="#EEF2FF" CornerRadius="20" Padding="10,4">
+                                <TextBlock Text="CUSTOMERS" FontSize="9" FontWeight="Bold"
+                                           Foreground="#4F46E5"/>
+                            </Border>
+                        </StackPanel>
+                        <TextBlock Text="Customer Analytics"
+                                   FontSize="22" FontWeight="Bold"
+                                   Foreground="#1E1B4B"/>
+                        <TextBlock x:Name="TxtCustomerCount" FontSize="11" Foreground="#6B7280"
+                                   Margin="0,4,0,0"/>
+                    </StackPanel>
+
+                    <!-- Decorative icon + Export -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Button Content="📤 Export CSV"
+                                Style="{StaticResource SecondaryBtn}"
+                                Width="140" Height="38"
+                                Click="BtnExportCsv_Click"/>
+                        <Border Width="56" Height="56" CornerRadius="14" Margin="16,0,0,0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#4F46E5" Offset="0"/>
+                                    <GradientStop Color="#7C3AED" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <TextBlock Text="👥" FontSize="26"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- ══ SEARCH & FILTER ══ -->
+            <Border Grid.Row="2" Padding="20,14" Background="White"
+                    CornerRadius="14" Effect="{StaticResource CardShadow}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Search Box -->
+                    <Grid Grid.Column="0">
+                        <Border Background="#F5F3FF" BorderBrush="#C7D2FE"
+                                BorderThickness="1.5" CornerRadius="8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="🔍" FontSize="13"
+                                           VerticalAlignment="Center" Margin="12,0,0,0"
+                                           Foreground="#818CF8"/>
+                                <TextBox Grid.Column="1"
+                                         x:Name="TxtSearch"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         Foreground="#1E1B4B"
+                                         CaretBrush="#4F46E5"
+                                         FontSize="13"
+                                         Padding="8,10"
+                                         Height="40"
+                                         VerticalContentAlignment="Center"
+                                         TextChanged="TxtSearch_TextChanged"/>
+                            </Grid>
+                        </Border>
+                        <TextBlock Text="🔍 Search by name or mobile…"
+                                   Foreground="#A5B4FC" FontSize="12"
+                                   Margin="38,0,0,0" VerticalAlignment="Center"
+                                   IsHitTestVisible="False">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=TxtSearch}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+
+                    <!-- Sort Dropdown -->
+                    <ComboBox x:Name="CmbSort" Grid.Column="2"
+                              Style="{StaticResource CustomersCombo}" Height="40"
+                              SelectionChanged="CmbSort_SelectionChanged">
+                        <ComboBoxItem Content="Name A→Z"                IsSelected="True"/>
+                        <ComboBoxItem Content="Name Z→A"/>
+                        <ComboBoxItem Content="Last Purchase (Newest)"/>
+                        <ComboBoxItem Content="Last Purchase (Oldest)"/>
+                        <ComboBoxItem Content="Most Purchases"/>
+                        <ComboBoxItem Content="Total Spent (High→Low)"/>
+                    </ComboBox>
+
+                    <!-- Refresh Button -->
+                    <Button Grid.Column="4" Content="↻ Refresh"
+                            Style="{StaticResource SecondaryBtn}"
+                            Width="110" Height="40"
+                            Click="BtnRefresh_Click"/>
+                </Grid>
+            </Border>
+
+            <!-- ══ CUSTOMERS DATAGRID ══ -->
+            <Border Grid.Row="4" Background="White"
+                    CornerRadius="14" Effect="{StaticResource CardShadow}"
+                    ClipToBounds="True">
+                <DataGrid x:Name="DgCustomers" AutoGenerateColumns="False"
+                          CanUserAddRows="False" CanUserDeleteRows="False"
+                          IsReadOnly="True" Background="White" BorderThickness="0"
+                          GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#EEF2FF"
+                          RowHeight="46" AlternatingRowBackground="#FAFBFF"
+                          SelectionMode="Single" HeadersVisibility="Column"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Auto"
+                          MouseDoubleClick="DgCustomers_MouseDoubleClick">
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background"      Value="#F5F3FF"/>
+                            <Setter Property="Foreground"      Value="#6B7280"/>
+                            <Setter Property="FontWeight"      Value="Bold"/>
+                            <Setter Property="FontSize"        Value="11"/>
+                            <Setter Property="Padding"         Value="14,12"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="BorderBrush"     Value="#EEF2FF"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Cursor"     Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#F5F3FF"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#EEF2FF"/>
+                                    <Setter Property="Foreground" Value="#1E1B4B"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="BorderThickness"  Value="0"/>
+                            <Setter Property="Padding"          Value="14,0"/>
+                            <Setter Property="Foreground"       Value="#374151"/>
+                            <Setter Property="FontSize"         Value="13"/>
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridCell">
+                                        <Border Background="{TemplateBinding Background}"
+                                                Padding="{TemplateBinding Padding}">
+                                            <ContentPresenter VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="#1E1B4B"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Customer Name"
+                                            Binding="{Binding Name}"
+                                            Width="2*" FontWeight="SemiBold"/>
+                        <DataGridTextColumn Header="Mobile"
+                                            Binding="{Binding Mobile}"
+                                            Width="120"/>
+                        <DataGridTextColumn Header="Last Purchase"
+                                            Binding="{Binding LastPurchaseDate, StringFormat={}{0:dd MMM yyyy}}"
+                                            Width="130"/>
+                        <DataGridTextColumn Header="Purchases"
+                                            Binding="{Binding PurchaseCount}"
+                                            Width="90"/>
+                        <DataGridTemplateColumn Header="Total Spent (₹)" Width="130">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TotalSpent, StringFormat={}{0:N2}}"
+                                               FontWeight="Bold" Foreground="#4F46E5"
+                                               VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="" Width="90">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="👁 View"
+                                            Width="80" Height="30"
+                                            Background="#EEF2FF" Foreground="#4F46E5"
+                                            BorderBrush="#C7D2FE" BorderThickness="1.5"
+                                            FontSize="11" FontWeight="SemiBold"
+                                            Cursor="Hand"
+                                            ToolTip="View customer's bill history"
+                                            Tag="{Binding}" Click="BtnViewHistory_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <!-- ══ FOOTER ══ -->
+            <Border Grid.Row="5" Padding="20,12" Background="White"
+                    BorderBrush="#EEF2FF" BorderThickness="0,1,0,0"
+                    CornerRadius="0,0,14,14" Margin="0,0,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="#EEF2FF" CornerRadius="6"
+                            Padding="10,4" HorizontalAlignment="Left">
+                        <TextBlock x:Name="TxtStatus"
+                                   Foreground="#4F46E5" FontSize="12"
+                                   FontWeight="SemiBold"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </StackPanel>
+</Page>
